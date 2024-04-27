@@ -1,0 +1,49 @@
+<div class="col-md-12">
+    <h3 class="text-primary text-center font-weight-bold m-2"> Edit Profile </h3>
+    <form action="/dashboard/editProfile" method="post" class="editForm" enctype="multipart/form-data">
+        <div class="text-danger error">
+            <% if (typeof msg !== 'undefined' && msg.length > 0 && !status ) { %>
+                <div class="alert-danger p-1 mb-3"><%= msg %></div>
+            <% }else if (typeof msg !== 'undefined' && msg.length > 0 && status ) {  %>
+                <div class="alert-success p-1 mb-3"><%= msg %></div>
+            <% } %>
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter name" id="name" 
+            value="<%= user.name %>">
+        </div>
+        <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" class="form-control" placeholder="Enter email" id="email" value="<%= user.email %>" readonly>
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="gender" id="gender" value="male"
+                    <%= ( user.gender == 'male' ) ? 'checked="true"' : ""; %>
+                    >Male
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="gender" id="gender" value="female"
+                    <%= ( user.gender == 'female' ) ? 'checked="true"' : ""; %>>Female
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="profileImage">Profile Image:</label>
+            <% if(user.profileImage) { %>
+                <p><img src="/static/uploads/<%= user.profileImage %>" width="50" /></p>
+            <% } %>
+            <input type="hidden" name="prevProfileImage" value="<%= user.profileImage %>" />
+            <input type="file" name="profileImage" class="form-control-file border" id="profileImage">
+        </div>
+
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-dark btn-lgs btn-block"> Update </button>
+        </div>
+    </form> 
+</div>

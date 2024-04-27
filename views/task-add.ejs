@@ -1,0 +1,114 @@
+<!-- Header --> 
+<%- include('./partials/header-auth' ); %>
+
+<p> &nbsp; </p>
+<p> &nbsp; </p>
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Create a new task 
+            <a href="/"  class="btn btn-dark float-right"> Back to lists </a>
+          </div>
+          <div class="card-body">
+            <div class="text-danger error">
+              <% if (typeof msg !== 'undefined' && msg.length > 0 && !status ) { %>
+                  <div class="alert-danger p-1 mb-3"><%= msg %></div>
+              <% }else if (typeof msg !== 'undefined' && msg.length > 0 && status ) {  %>
+                  <div class="alert-success p-1 mb-3"><%= msg %></div>
+              <% } %>
+          </div>
+            <form action="/dashboard/task/create" method="post" class="">
+                <div class="col-md-12 input_fields_wrap">
+                  <div class="row mb-3 ">
+                    <div class="col-md-12">
+                        <button 
+                            type="button" 
+                            class="add_field_button btn btn-warning float-right" 
+                            onclick="addMoreField()"
+                        >
+                            Add More
+                        </button>
+                    </div>
+                  </div>
+                    <div id="add-task-container">
+                        <div class="form-row p-2 m-2 border">
+                            <div class="col-5">
+                              <input type="text" class="form-control title" placeholder="Enter title" name="title">
+                            </div>
+                            <div class="col-5">
+                              <textarea class="form-control description" placeholder="Enter description" name="description"></textarea>
+                            </div>
+                            <div class="col-1">
+                              &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5 pt-5">
+                      <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-success"> Submit </button>
+                      </div>
+                    </div>
+                </div>
+            </form>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    const addTaskContainer = document.getElementById("add-task-container");
+    var totalField = 1;
+    function addMoreField() {
+
+        let addBlock = document.createElement('div');
+        let addIDBlock = 'extraField-'+totalField;
+        addBlock.setAttribute('class','form-row p-2 m-2 border');
+        addBlock.setAttribute('id',addIDBlock);
+
+        let addCol1 = document.createElement('div');
+        addCol1.setAttribute('class','col-5');
+        addBlock.appendChild(addCol1);
+
+        // create an title field to insert
+        let newTitleField = document.createElement("input");
+        newTitleField.setAttribute('type','text');
+        newTitleField.setAttribute('class','form-control title');
+        newTitleField.setAttribute('placeholder','Enter title');
+        newTitleField.setAttribute('name','title');
+        addCol1.appendChild(newTitleField);
+
+        let addCol2 = document.createElement('div');
+        addCol2.setAttribute('class','col-5');
+        addBlock.appendChild(addCol2);
+
+        let addCol3 = document.createElement('div');
+        addCol3.setAttribute('class','col-1');
+        addCol3.innerHTML = '<a href="javascript:void(0)" class="removeField badge badge-danger" onclick="removeField('+totalField+');" > Remove </a>';
+        addBlock.appendChild(addCol3);
+
+
+
+        // create an description field to insert
+        let newDescriptionField = document.createElement("textarea");
+        newDescriptionField.setAttribute('class','form-control description');
+        newDescriptionField.setAttribute('placeholder','Enter description');
+        newDescriptionField.setAttribute('name','description');
+        addCol2.appendChild(newDescriptionField);
+
+        addTaskContainer.appendChild(addBlock);
+
+        totalField++;
+    }
+
+    function removeField(num) {
+      var removeFieldId = "extraField-"+num;
+	    var removeFieldElement = document.getElementById(removeFieldId);
+	    removeFieldElement.remove();
+    }
+</script>
+
+<!-- Footer --> 
+<%- include('./partials/footer'); %>

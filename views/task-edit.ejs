@@ -1,0 +1,53 @@
+<!-- Header --> 
+<%- include('./partials/header-auth' ); %>
+
+<p> &nbsp; </p>
+<p> &nbsp; </p>
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Edit Task  
+            <a href="/"  class="btn btn-dark float-right"> Back to lists </a>
+          </div>
+          <div class="card-body">
+            <div class="text-danger error">
+              <% if (typeof msg !== 'undefined' && msg.length > 0 && !status ) { %>
+                  <div class="alert-danger p-1 mb-3"><%= msg %></div>
+              <% }else if (typeof msg !== 'undefined' && msg.length > 0 && status ) {  %>
+                  <div class="alert-success p-1 mb-3"><%= msg %></div>
+              <% } %>
+          </div>
+            <form action="/dashboard/task/update/<%= task._id %>" method="post" class="">
+                <div class="col-md-12 input_fields_wrap">
+                    <div id="add-task-container">
+                        <div class="form-row p-2 m-2 border">
+                            <div class="col-12 mb-3">
+                                <label> Title : </label>
+                              <input type="text" class="form-control title" placeholder="Enter title" name="title" value="<%= task.title %>">
+                            </div>
+                            <div class="col-12 mb-2">
+                                <label> Description : </label>
+                              <textarea class="form-control description" placeholder="Enter description" name="description"><%= task.description %></textarea>
+                            </div>
+                            <div class="col-1">
+                              &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5 pt-5">
+                      <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-success"> Submit </button>
+                      </div>
+                    </div>
+                </div>
+            </form>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Footer --> 
+<%- include('./partials/footer'); %>

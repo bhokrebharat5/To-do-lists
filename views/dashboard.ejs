@@ -1,0 +1,59 @@
+
+<!-- Header --> 
+<%- include('./partials/header-auth' ); %>
+<div class="clearfix">...</div>
+<p> &nbsp; </p>
+<p> &nbsp; </p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Task Lists
+          <a href="/dashboard/task/add"  class="btn btn-dark float-right"> Add </a>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(taskLists.length > 0) { %>
+                <% taskLists.forEach(function(item) { %>
+                  <tr>
+                    <td><%= item.title %></td></td>
+                    <td><%= item.description %></td>
+                    <td>
+                      <a href="/dashboard/task/view/<%= item._id %>" class="btn btn-dark"> View </a>
+                      <a href="/dashboard/task/edit/<%= item._id %>" class="btn btn-info"> Edit </a>
+                      <a href="/dashboard/task/delete/<%= item._id %>" class="btn btn-danger"> delete </a>
+                    </td>
+                  </tr>
+                  <% }); %>
+              <% } else{ %>  
+                <tr>
+                  <td colspan="2"> No Available Task </td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+<!-- Footer --> 
+<%- include('./partials/footer'); %>
